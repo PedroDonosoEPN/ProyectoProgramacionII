@@ -101,7 +101,7 @@ public class Controlador {
                 }
             } while (opcionAdmin != 5);
 
-        } else if (estadoUsuario == 15) {
+        } else if (estadoUsuario == 9) {
             System.out.println("-> Bienvenido al Panel de clientes");
             System.out.println("Acceso limitado. No se encontraron acciones disponibles para este rol.");
             
