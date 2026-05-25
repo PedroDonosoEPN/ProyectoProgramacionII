@@ -1,13 +1,12 @@
-package MatiasEnriquez;
+package MatiasMetodos;
 
-import java.util.ArrayList;
+import PedroMetodos.gestionStock;
 
-class Inventario{
-    ArrayList<Producto> productos = new ArrayList<>();
+public class Inventario{
 
-    public void AgregarProducto(String id, String nombre, double precio, int stock){
-        boolean existe = false;
-
+    public void AgregarProducto(gestionStock gs, String id, String nombre, double precio, int stock){
+        String[][] inventario = gs.getInventario();
+        
         if(id == null || id.trim().isEmpty()){
             System.out.println("Error");
             return;
@@ -42,29 +41,57 @@ class Inventario{
             return;
         }
 
-        for(Producto nuevo : productos){
-            if(nuevo.ID.equals(id)){
-            nuevo.stock = nuevo.stock + stock;
-            System.out.println("Producto Existente. Stock actualizado: " + nuevo.stock);
-            existe = true;
-            break;
+        boolean existe = false;
+
+        for(int i = 0; i<inventario.length; i++){
+            if(inventario[i][0] != null && inventario[i][0].equals(id)){
+                int stockActual = Integer.parseInt(inventario[i][2]);
+                int nuevoStock = stockActual + stock;
+
+                //Guardar como texto
+                inventario[i][2] = String.valueOf(nuevoStock);
+                System.out.println("Producto Existente. Stock Actaulizado");
+                existe = true;
+                break;
             }
         }
 
     if(!existe){
-        Producto nuevoProducto = new Producto(id, nombre, precio, stock);
-        productos.add(nuevoProducto);
-        System.out.println("Producto agregado");
+        boolean agregado = false;
+        for(int i = 0; i<inventario.length;i++){
+        if (inventario[i][0] == null) {
+                    inventario[i][0] = id;
+                    inventario[i][1] = nombre;
+                    inventario[i][2] = String.valueOf(stock);
+                    inventario[i][3] = String.valueOf(precio);
+                    
+                    System.out.println("Producto agregado exitosamente.");
+                    agregado = true;
+                    break;
+                }
+            }
+
+            if(!agregado){
+                System.out.println("Error. Inventario lleno");
+            }
         }
     }
 
-    public void EliminarProducto(String id, String nombre){
+    public void EliminarProducto(gestionStock gs, String id, String nombre){
+        String[][] inventario = gs.getInventario();
         boolean encontrado = false;
 
-        for(int i = 0; i < productos.size(); i++){
-            if(productos.get(i).ID.equals(id)){
-                productos.remove(i);
-                System.out.println(nombre + " eliminado exitosamente");
+        for(int i = 0; i < inventario.length; i++){
+            // Si la fila tiene datos y el ID coincide
+            if (inventario[i][0] != null && inventario[i][0].equals(id)) {
+                
+                // "Eliminamos" el producto vaciando sus columnas
+                inventario[i][0] = null; // ID vaciado
+                inventario[i][1] = null; // Nombre vaciado
+                inventario[i][2] = null; // Stock vaciado
+                inventario[i][3] = null; // Precio vaciado
+                
+                System.out.println(nombre + " eliminado exitosamente.");
                 encontrado = true;
                 break;
             }
