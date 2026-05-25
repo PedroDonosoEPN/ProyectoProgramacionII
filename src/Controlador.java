@@ -94,7 +94,7 @@ public class Controlador {
                         
                     case 5:
                         System.out.println("Cerrando sesión de administrador...");
-                        break;
+                        return;
                         
                     default:
                         System.out.println("Opción inválida.");
