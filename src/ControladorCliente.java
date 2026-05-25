@@ -5,15 +5,16 @@ import PedroMetodos.gestionStock;
 import PedroMetodos.mostrarInventario;
 
 public class ControladorCliente {
-    public void menuCliente(Scanner teclado) {
+    public void menuCliente(Scanner teclado, gestionStock gestorInventario) {
         int opcionCliente;
         int maxProductos = 10;
         double dineroInicial;
-        gestionStock gestorInventario = new gestionStock(maxProductos);
+        //gestionStock gestorInventario = new gestionStock(maxProductos);
         mostrarInventario vistaTablas = new mostrarInventario();
-        sistemaVentas agregarAlCarrito = new sistemaVentas(maxProductos);
-        sistemaVentas borrarDelCarrito = new sistemaVentas(maxProductos);
-        sistemaVentas finalizarCompra = new sistemaVentas(maxProductos);
+        sistemaVentas carrito = new sistemaVentas(maxProductos);
+        // sistemaVentas agregarAlCarrito = new sistemaVentas(maxProductos);
+        // sistemaVentas borrarDelCarrito = new sistemaVentas(maxProductos);
+        // sistemaVentas finalizarCompra = new sistemaVentas(maxProductos);
         System.out.println("-> Bienvenido al Panel de clientes");
          // Pedir dinero inicial antes del menú
         System.out.print("Ingrese el dinero inicial: ");
@@ -51,20 +52,20 @@ public class ControladorCliente {
                 System.out.print("Ingrese la cantidad a añadir: ");
                 int cantidad = teclado.nextInt();
                 teclado.nextLine();
-                agregarAlCarrito.agregarAlCarrito(gestorInventario, id, cantidad);
+                carrito.agregarAlCarrito(gestorInventario, id, cantidad);
                 break;
             case 3:
                 System.out.print("Ingrese el ID del producto a borrar del carrito: ");
                 String idBorrar = teclado.nextLine();
-                borrarDelCarrito.borrarProductoCarrito(gestorInventario, idBorrar);
+                carrito.borrarProductoCarrito(gestorInventario, idBorrar);
                 break;
             case 4:
                 System.out.println("Finalizando compra...");
-                finalizarCompra.finalizarCompra(dineroInicial);
+                carrito.finalizarCompra(dineroInicial);
                 break;
             case 5:
                 System.out.println("Listar productos del carrito...");
-                agregarAlCarrito.mostrarCarrito();
+                carrito.mostrarCarrito();
                 break;
             case 6:
                 System.out.println("Cerrando sesión cliente...");
