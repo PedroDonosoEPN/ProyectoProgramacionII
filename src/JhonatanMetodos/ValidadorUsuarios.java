@@ -2,31 +2,29 @@ package JhonatanMetodos;
 
 public class ValidadorUsuarios {
 
-    // Constantes de estados
+    // Tus constantes basadas exactamente en tu grafo en papel
     public final int er = -10;
-    public final int ESTADO_ADMIN = 14;   
-    public final int ESTADO_CLIENTE = 15; 
+    public final int ESTADO_ADMIN = 14;   // q14
+    public final int ESTADO_CLIENTE = 9;  // q9 
 
-    // Matriz de transiciones
+    // Matriz 
     final int mt[][] = {
         // .   c   l   i   e   n   t   a   d   m  Otro Enter
-        { er, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16,  er }, // q0 (Obliga a empezar con letra/número)
-        { er,  2, er, er, er, er, er,  8, er, er, er,  er }, // q1
-        { er, er,  3, er, er, er, er, er, er, er, er,  er }, // q2
-        { er, er, er,  4, er, er, er, er, er, er, er,  er }, // q3
-        { er, er, er, er,  5, er, er, er, er, er, er,  er }, // q4
-        { er, er, er, er, er,  6, er, er, er, er, er,  er }, // q5
-        { er, er, er, er, er, er,  7, er, er, er, er,  er }, // q6
-        { er, er, er, er, 13, er, er, er, er, er, er,  er }, // q7
-        { er, er, er, er, er, er, er, er,  9, er, er,  er }, // q8
-        { er, er, er, er, er, er, er, er, er, 10, er,  er }, // q9
-        { er, er, er, 11, er, er, er, er, er, er, er,  er }, // q10
-        { er, er, er, er, er, 12, er, er, er, er, er,  er }, // q11
-        { er, er, er, er, er, er, er, er, er, er, er,  14 }, // q12
-        { er, er, er, er, er, er, er, er, er, er, er,  15 }, // q13
-        { er, er, er, er, er, er, er, er, er, er, er,  er }, // q14
-        { er, er, er, er, er, er, er, er, er, er, er,  er }, // q15
-        {  1, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16,  er }  // q16 (Bucle del nombre)
+        { er,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  er }, // q0: Cualquier letra/número arranca el nombre -> q1
+        {  2,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  er }, // q1: El nombre puede contener letras del alfabeto. '.' va a q2
+        { er,  3, er, er, er, er, er, 10, er, er, er,  er }, // q2: Bifurcación ('c' -> q3, 'a' -> q10)
+        { er, er,  4, er, er, er, er, er, er, er, er,  er }, // q3: 'l' -> q4
+        { er, er, er,  5, er, er, er, er, er, er, er,  er }, // q4: 'i' -> q5
+        { er, er, er, er,  6, er, er, er, er, er, er,  er }, // q5: 'e' -> q6
+        { er, er, er, er, er,  7, er, er, er, er, er,  er }, // q6: 'n' -> q7
+        { er, er, er, er, er, er,  8, er, er, er, er,  er }, // q7: 't' -> q8
+        { er, er, er, er,  9, er, er, er, er, er, er,  er }, // q8: 'e' -> q9
+        { er, er, er, er, er, er, er, er, er, er, er,   9 }, // q9: ESTADO DE ACEPTACIÓN (Consume el Enter)
+        { er, er, er, er, er, er, er, er, 11, er, er,  er }, // q10: 'd' -> q11
+        { er, er, er, er, er, er, er, er, er, 12, er,  er }, // q11: 'm' -> q12
+        { er, er, er, 13, er, er, er, er, er, er, er,  er }, // q12: 'i' -> q13
+        { er, er, er, er, er, 14, er, er, er, er, er,  er }, // q13: 'n' -> q14
+        { er, er, er, er, er, er, er, er, er, er, er,  14 }  // q14: ESTADO DE ACEPTACIÓN (Consume el Enter)
     };
 
     private int getIndexAlfabeto(char c) {

@@ -101,7 +101,7 @@ public class Controlador {
                 }
             } while (opcionAdmin != 5);
 
-        } else if (estadoUsuario == 15) {
+        } else if (estadoUsuario == 9) {
             ControladorCliente cliente = new ControladorCliente();
             cliente.menuCliente(teclado);
             
