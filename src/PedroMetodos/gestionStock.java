@@ -2,9 +2,9 @@ package PedroMetodos;
 
 /**
  * Clase encargada de la gestión y control del inventario de productos.
- * Permite administrar las existencias utilizando una estructura de matriz bidimensional con ID.
+ * Permite administrar las existencias utilizando una estructura de matriz bidimensional con ID y Precio.
  * * @author Pedro José Donoso Vélez
- * @version 1.1
+ * @version 1.2
  */
 public class gestionStock {
     
@@ -14,16 +14,17 @@ public class gestionStock {
 
     /**
      * Constructor de la clase. Inicializa la matriz de inventario vacía
-     * con espacio para 3 columnas (ID, Nombre, Cantidad).
+     * con espacio para 4 columnas (ID, Nombre, Cantidad, Precio).
      * * @param filas Número máximo de filas (productos distintos) que soportará el sistema.
      */
     public gestionStock(int filas) {
         this.maxProductos = filas;
-        // Matriz de 'filas' x 3 columnas:
+        // Matriz de 'filas' x 4 columnas:
         // Columna 0: ID
         // Columna 1: Nombre del Producto
         // Columna 2: Cantidad en Stock
-        this.inventario = new String[maxProductos][3];
+        // Columna 3: Precio del Producto
+        this.inventario = new String[maxProductos][4];
     }
 
     /**
@@ -31,7 +32,7 @@ public class gestionStock {
      * Permite tanto aumentos como disminuciones en una sola operación lógica.
      * * @param criterioBuscar El ID o el Nombre del producto al cual se le alterará el stock.
      * @param cantidad El número de unidades a modificar. Use valores positivos 
-     * para abastecer (sumar) y valores negativos para retirar (restar).
+     * for abastecer (sumar) y valores negativos para retirar (restar).
      * @return {@code true} si el producto existe y la operación se realizó con éxito; 
      * {@code false} si el producto no fue encontrado o si el stock resultante 
      * es menor a cero.
@@ -66,13 +67,10 @@ public class gestionStock {
         return false;
     }
 
-    // =================================================================
-    // LO ÚNICO NUEVO: Agrega este método al final de tu archivo
-    // =================================================================
     /**
      * Retorna la referencia de la matriz de inventario privada.
      * Permite que tu compañero o el visualizador accedan a los datos desde el Main.
-     * * @return La matriz bidimensional de Strings.
+     * * @return La matriz bidimensional de Strings (4 columnas).
      */
     public String[][] getInventario() {
         return this.inventario;
