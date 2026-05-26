@@ -5,6 +5,7 @@ import PedroMetodos.gestionStock;
 import PedroMetodos.mostrarInventario;
 
 public class ControladorCliente {
+<<<<<<< HEAD
     public void menuCliente(Scanner teclado) {
         int opcionCliente;
         int maxProductos = 10;
@@ -14,6 +15,18 @@ public class ControladorCliente {
         sistemaVentas agregarAlCarrito = new sistemaVentas(maxProductos);
         sistemaVentas borrarDelCarrito = new sistemaVentas(maxProductos);
         sistemaVentas finalizarCompra = new sistemaVentas(maxProductos);
+=======
+    public void menuCliente(Scanner teclado, gestionStock gestorInventario) {
+        int opcionCliente;
+        int maxProductos = 10;
+        double dineroInicial;
+        //gestionStock gestorInventario = new gestionStock(maxProductos);
+        mostrarInventario vistaTablas = new mostrarInventario();
+        sistemaVentas carrito = new sistemaVentas(maxProductos);
+        // sistemaVentas agregarAlCarrito = new sistemaVentas(maxProductos);
+        // sistemaVentas borrarDelCarrito = new sistemaVentas(maxProductos);
+        // sistemaVentas finalizarCompra = new sistemaVentas(maxProductos);
+>>>>>>> 7d3a9cba53125f0188817e510a3bb0e0f34d42d0
         System.out.println("-> Bienvenido al Panel de clientes");
          // Pedir dinero inicial antes del menú
         System.out.print("Ingrese el dinero inicial: ");
@@ -51,11 +64,16 @@ public class ControladorCliente {
                 System.out.print("Ingrese la cantidad a añadir: ");
                 int cantidad = teclado.nextInt();
                 teclado.nextLine();
+<<<<<<< HEAD
                 agregarAlCarrito.agregarAlCarrito(gestorInventario, id, cantidad);
+=======
+                carrito.agregarAlCarrito(gestorInventario, id, cantidad);
+>>>>>>> 7d3a9cba53125f0188817e510a3bb0e0f34d42d0
                 break;
             case 3:
                 System.out.print("Ingrese el ID del producto a borrar del carrito: ");
                 String idBorrar = teclado.nextLine();
+<<<<<<< HEAD
                 borrarDelCarrito.borrarProductoCarrito(gestorInventario, idBorrar);
                 break;
             case 4:
@@ -65,6 +83,17 @@ public class ControladorCliente {
             case 5:
                 System.out.println("Listar productos del carrito...");
                 agregarAlCarrito.mostrarCarrito();
+=======
+                carrito.borrarProductoCarrito(gestorInventario, idBorrar);
+                break;
+            case 4:
+                System.out.println("Finalizando compra...");
+                carrito.finalizarCompra(dineroInicial);
+                break;
+            case 5:
+                System.out.println("Listar productos del carrito...");
+                carrito.mostrarCarrito();
+>>>>>>> 7d3a9cba53125f0188817e510a3bb0e0f34d42d0
                 break;
             case 6:
                 System.out.println("Cerrando sesión cliente...");
