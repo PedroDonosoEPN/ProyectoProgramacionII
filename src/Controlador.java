@@ -7,18 +7,20 @@ import java.util.Scanner;
 public class Controlador {
     
     public void iniciarSistema(Scanner teclado) {
-
         ValidadorUsuarios validador = new ValidadorUsuarios();
+        
         int maxProductos = 10;
         gestionStock gestorInventario = new gestionStock(maxProductos);
         mostrarInventario vistaTablas = new mostrarInventario();
         Inventario controladorProductos = new Inventario();
         
         boolean sistemaEncendido = true;
+        
+        // Bucle principal para que el sistema se quede encendido tras cerrar sesión
         while (sistemaEncendido) {
             int estadoUsuario = 0;
             
-            // --- LOGIN ---
+            // --- LOGIN (BUCLE HASTA QUE INGRESE ROL VÁLIDO O SALIR) ---
             do {
                 System.out.println("\n=== BIENVENIDO A LA TIENDA DE TECNOLOGÍA ===");
                 System.out.println("Formatos válidos: [nombre].cliente o [nombre].admin (Escribe 'salir' para apagar)");
@@ -33,15 +35,19 @@ public class Controlador {
                 }
                 
                 estadoUsuario = validador.validarUsuario(entrada); 
+                
+                if (estadoUsuario != 14 && estadoUsuario != 9 && estadoUsuario != -1) {
+                    System.out.println("Error, formato no válido. Intente de nuevo.");
+                }
 
-            } while(estadoUsuario != 14 && estadoUsuario != 9);
+            } while (estadoUsuario != 14 && estadoUsuario != 9);
 
             System.out.println("----------------------------------------");
 
-            // --- REDIRECCIÓN ---
+            // --- REDIRECCIÓN DE ROLES ---
             if (estadoUsuario == -1) {
                 System.out.println("Apagando el sistema. ¡Adiós!");
-                sistemaEncendido = false; // Rompe el bucle principal
+                sistemaEncendido = false; // Rompe el bucle principal y apaga
                 
             } else if (estadoUsuario == 14) {
                 System.out.println("-> Bienvenido al panel de administrador");
@@ -60,6 +66,7 @@ public class Controlador {
                     
                     switch (opcionAdmin) {
                         case 1:
+                            // --- REGISTRO DE PRODUCTO ---
                             System.out.print("Ingrese ID del producto (7 caracteres): ");
                             String id = teclado.nextLine();
                             System.out.print("Ingrese Nombre del producto: ");
@@ -74,6 +81,7 @@ public class Controlador {
                             break;
                             
                         case 2:
+                            // --- ELIMINACIÓN DE PRODUCTO ---
                             System.out.print("Ingrese el ID del producto que desea eliminar: ");
                             String idEliminar = teclado.nextLine();
                             System.out.print("Ingrese el Nombre del producto que desea eliminar: ");
@@ -83,6 +91,7 @@ public class Controlador {
                             break;
                             
                         case 3:
+                            // --- MODIFICACIÓN DE STOCK ---
                             System.out.print("Ingrese ID o Nombre del producto: ");
                             String criterio = teclado.nextLine();
                             System.out.print("Cantidad a cambiar (Positivo suma / Negativo resta): ");
@@ -96,6 +105,7 @@ public class Controlador {
                             break;
                             
                         case 4:
+                            // --- IMPRESIÓN DEL INVENTARIO ---
                             vistaTablas.imprimirTabla(gestorInventario.getInventario(), maxProductos);
                             break;
                             
@@ -109,15 +119,13 @@ public class Controlador {
                 } while (opcionAdmin != 5);
 
             } else if (estadoUsuario == 9) {
+                // --- PANEL DE CLIENTES ---
+                System.out.println("-> Bienvenido al Panel de clientes");
                 ControladorCliente cliente = new ControladorCliente();
                 
-                // NOTA: Si el cliente necesita ver los productos, probablemente necesites
-                // pasar 'gestorInventario' como parámetro aquí, similar a como lo haces en el admin.
+                // Le pasamos la misma instancia del gestorInventario para que Eidan use las ventas
                 cliente.menuCliente(teclado, gestorInventario); 
-                
-            } else {
-                System.out.println("Error, formato no válido");
             }
-        } // Fin del while (sistemaEncendido)
+        } 
     }
 }

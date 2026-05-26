@@ -1,7 +1,12 @@
 package EidanMetodos;
 
 import PedroMetodos.gestionStock;
-
+/**
+ * Clase encargada de las funciones relacionadas con el proceso de compra y gestión del carrito de compras.
+ * Admite operaciones como agregar productos al carrito, mostrar el contenido del carrito, eliminar productos del carrito y finalizar la compra.
+ * * @author Eidan Clavijo Rafael Alvarado
+ * @version 1.3
+ */
 public class sistemaVentas {
     // [0] ID
     // [1] Nombre
@@ -11,19 +16,29 @@ public class sistemaVentas {
     private String[][] carrito;
 
     public gestionStock gs;
-
+    /**
+     * Permite ingresar a un nuevo sistema de ventas con un carrito vacío y una referencia al gestor de inventario para poder modificar el stock al agregar o eliminar productos del carrito.
+     * Inicializa la matriz del carrito vacía con espacio para 4 columnas (ID, Nombre, Cantidad, Precio).
+     * * @param maxProductos Número máximo de productos distintos que el carrito puede contener.
+      * @param gs Referencia al gestor de inventario para poder modificar el stock al agregar
+     */
     public sistemaVentas(int maxProductos, gestionStock gs) {
         carrito = new String[maxProductos][4];
         this.gs = gs;
     }
-
+    /** 
+     * Obtiene el contenido del carrito.
+     * * @return Matriz que representa el carrito de compras.
+     */
     public String[][] getCarrito() {
         return carrito;
     }
 
-    // -------------------------------------------------
-    // AGREGAR PRODUCTO AL CARRITO
-    // -------------------------------------------------
+ /** Funcion para agregar productos al carrito. Valida que el producto exista en el inventario, que la cantidad sea positiva y que haya stock suficiente antes de agregarlo al carrito. Si el producto ya existe en el carrito, simplemente actualiza la cantidad. Al agregar un producto al carrito, también descuenta la cantidad correspondiente del stock en el inventario.
+  * @param gs Referencia al gestor de inventario para acceder a la matriz de inventario y modificar el stock.
+  * @param id ID del producto a agregar al carrito. Debe coincidir con el ID registrado en el inventario.
+  * @param cantidad Cantidad del producto a agregar al carrito. Debe ser un número entero positivo y no puede exceder el stock disponible en el inventario.
+  *   */
     public void agregarAlCarrito(
             gestionStock gs,
             String id,
@@ -105,9 +120,8 @@ public class sistemaVentas {
         System.out.println("Producto no encontrado");
     }
 
-    // -------------------------------------------------
-    // MOSTRAR CARRITO
-    // -------------------------------------------------
+   /** Funcion que enlista los productos actualmente en el carrito, mostrando su ID, nombre, cantidad, precio unitario y subtotal (cantidad x precio). Al final de la lista, muestra el total acumulado de la compra. Si el carrito está vacío, muestra un mensaje indicando que no hay productos en el carrito.
+  *   */
     public void mostrarCarrito() {
 
         System.out.println("\n======= CARRITO =======");
@@ -144,9 +158,10 @@ public class sistemaVentas {
         System.out.println("-----------------------");
         System.out.println("TOTAL: $" + total);
     }
-     // -------------------------------------------------
-    // BORRAR PRODUCTO DEL CARRITO
-    // -------------------------------------------------
+     /** Permite eliminar un producto específico del carrito buscando por su ID. Al eliminar un producto del carrito, también regresa la cantidad correspondiente al stock en el inventario. Si el producto no se encuentra en el carrito, muestra un mensaje indicando que el producto no está en el carrito.
+  * @param gs Referencia al gestor de inventario para acceder a la matriz de inventario y modificar el stock al eliminar un producto del carrito.
+  * @param id ID del producto a eliminar del carrito. Debe coincidir con el ID registrado en el carrito. 
+  *   */
     public void borrarProductoCarrito(
             gestionStock gs,
             String id) {
@@ -193,9 +208,9 @@ public class sistemaVentas {
         System.out.println("Producto no encontrado en carrito");
     }
 
-    // -------------------------------------------------
-    // FINALIZAR COMPRA
-    // -------------------------------------------------
+  /** Permite finalizar la compra, calculando el total de la compra sumando el subtotal de cada producto en el carrito (cantidad x precio). Luego verifica si el dinero inicial proporcionado por el cliente es suficiente para cubrir el total de la compra. Si el dinero es insuficiente, muestra un mensaje indicando que no se puede finalizar la compra y retorna el dinero inicial sin modificar. Si el dinero es suficiente, procede a modificar el stock en el inventario restando las cantidades compradas y luego descuenta el total de la compra del dinero inicial. Finalmente, vacía el carrito y muestra un mensaje indicando que la compra se ha realizado correctamente junto con el dinero restante.
+  * @param dineroInicial El monto de dinero que el cliente tiene disponible para realizar la compra
+  *   */
         public double finalizarCompra(
         double dineroInicial
     ) {

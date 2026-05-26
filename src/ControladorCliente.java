@@ -1,15 +1,16 @@
-import java.util.Scanner;
-
 import EidanMetodos.sistemaVentas;
 import PedroMetodos.gestionStock;
 import PedroMetodos.mostrarInventario;
+import java.util.Scanner;
 
 public class ControladorCliente {
+
     public void menuCliente(Scanner teclado, gestionStock gestorInventario) {
         int opcionCliente;
         int maxProductos = 10;
         double dineroInicial;
-        //gestionStock gestorInventario = new gestionStock(maxProductos);
+        
+        // Inicialización de componentes de visualización y ventas de Eidan
         mostrarInventario vistaTablas = new mostrarInventario();
 
         sistemaVentas carrito =
@@ -21,10 +22,11 @@ public class ControladorCliente {
         // sistemaVentas borrarDelCarrito = new sistemaVentas(maxProductos);
         // sistemaVentas finalizarCompra = new sistemaVentas(maxProductos);
         System.out.println("-> Bienvenido al Panel de clientes");
-         // Pedir dinero inicial antes del menú
+        
+        // Pedir dinero inicial antes de desplegar las opciones
         System.out.print("Ingrese el dinero inicial: ");
         dineroInicial = teclado.nextDouble();
-        teclado.nextLine();
+        teclado.nextLine(); // Limpiar buffer de entrada
 
       
                
@@ -81,12 +83,12 @@ public class ControladorCliente {
          delay(1500); // Pausa de 1.5 segundos 
          }while (opcionCliente != 6);
     }
-    public void delay(int milisegundos) {
 
-    try {
-        Thread.sleep(milisegundos);
-    } catch (InterruptedException e) {
-        System.out.println("Error en delay");
+    public void delay(int milisegundos) {
+        try {
+            Thread.sleep(milisegundos);
+        } catch (InterruptedException e) {
+            System.out.println("Error en delay");
+        }
     }
-}
 }
