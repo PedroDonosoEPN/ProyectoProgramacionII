@@ -6,7 +6,7 @@ Este proyecto es una aplicación modular desarrollada en **Java** para la admini
 ---
 
 ## 👥 Integrantes
-* Pedro José Donoso Vélez
+* Pedro 
 * Eidan
 * Jhonatan
 * Matías
