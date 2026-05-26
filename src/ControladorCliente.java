@@ -21,7 +21,6 @@ public class ControladorCliente {
         // sistemaVentas agregarAlCarrito = new sistemaVentas(maxProductos);
         // sistemaVentas borrarDelCarrito = new sistemaVentas(maxProductos);
         // sistemaVentas finalizarCompra = new sistemaVentas(maxProductos);
-        System.out.println("-> Bienvenido al Panel de clientes");
         
         // Pedir dinero inicial antes de desplegar las opciones
         System.out.print("Ingrese el dinero inicial: ");
