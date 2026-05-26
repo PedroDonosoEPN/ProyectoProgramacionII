@@ -94,16 +94,16 @@ public class Controlador {
                         
                     case 5:
                         System.out.println("Cerrando sesión de administrador...");
-                        break;
+                        return;
                         
                     default:
                         System.out.println("Opción inválida.");
                 }
             } while (opcionAdmin != 5);
 
-        } else if (estadoUsuario == 15) {
-            System.out.println("-> Bienvenido al Panel de clientes");
-            System.out.println("Acceso limitado. No se encontraron acciones disponibles para este rol.");
+        } else if (estadoUsuario == 9) {
+            ControladorCliente cliente = new ControladorCliente();
+            cliente.menuCliente(teclado);
             
         } else {
             System.out.println("Error, formato no válido");
