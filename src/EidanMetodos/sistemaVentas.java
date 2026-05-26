@@ -10,8 +10,11 @@ public class sistemaVentas {
 
     private String[][] carrito;
 
-    public sistemaVentas(int maxProductos) {
+    public gestionStock gs;
+
+    public sistemaVentas(int maxProductos, gestionStock gs) {
         carrito = new String[maxProductos][4];
+        this.gs = gs;
     }
 
     public String[][] getCarrito() {
@@ -193,7 +196,9 @@ public class sistemaVentas {
     // -------------------------------------------------
     // FINALIZAR COMPRA
     // -------------------------------------------------
-    public double finalizarCompra(double dineroInicial) {
+        public double finalizarCompra(
+        double dineroInicial
+    ) {
 
         double total = 0;
 
@@ -212,24 +217,45 @@ public class sistemaVentas {
             }
         }
 
-        System.out.println("Total de compra: $" + total);
-        System.out.println("Dinero disponible: $" + dineroInicial);
+        System.out.println(
+            "Total de compra: $" + total
+        );
 
-        // Validar dinero
+        // Verificar dinero
         if (total > dineroInicial) {
 
             System.out.println(
-                "Dinero insuficiente para completar la compra"
+                "Dinero insuficiente"
             );
 
             return dineroInicial;
         }
 
-        // Restar dinero
+        // Modificar stock
+        for (int i = 0; i < carrito.length; i++) {
+
+            if (carrito[i][0] != null) {
+
+                String id = carrito[i][0];
+
+                int cantidad =
+                    Integer.parseInt(carrito[i][2]);
+
+                // Restar stock
+                gs.modificarStock(id, -cantidad);
+            }
+        }
+
+        // Descontar dinero
         dineroInicial -= total;
 
-        System.out.println("Compra realizada exitosamente");
-        System.out.println("Dinero restante: $" + dineroInicial);
+        System.out.println(
+            "Compra realizada correctamente"
+        );
+
+        System.out.println(
+            "Dinero restante: $" + dineroInicial
+        );
 
         // Vaciar carrito
         for (int i = 0; i < carrito.length; i++) {
@@ -240,9 +266,8 @@ public class sistemaVentas {
             carrito[i][3] = null;
         }
 
-        System.out.println("Carrito vaciado");
-
         return dineroInicial;
     }
 }
+
 

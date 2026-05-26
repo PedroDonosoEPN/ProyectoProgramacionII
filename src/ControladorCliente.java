@@ -11,7 +11,12 @@ public class ControladorCliente {
         double dineroInicial;
         //gestionStock gestorInventario = new gestionStock(maxProductos);
         mostrarInventario vistaTablas = new mostrarInventario();
-        sistemaVentas carrito = new sistemaVentas(maxProductos);
+
+        sistemaVentas carrito =
+            new sistemaVentas(
+             10,
+                gestorInventario
+        );
         // sistemaVentas agregarAlCarrito = new sistemaVentas(maxProductos);
         // sistemaVentas borrarDelCarrito = new sistemaVentas(maxProductos);
         // sistemaVentas finalizarCompra = new sistemaVentas(maxProductos);
@@ -61,7 +66,7 @@ public class ControladorCliente {
                 break;
             case 4:
                 System.out.println("Finalizando compra...");
-                carrito.finalizarCompra(dineroInicial);
+                dineroInicial = carrito.finalizarCompra(dineroInicial);
                 break;
             case 5:
                 System.out.println("Listar productos del carrito...");
