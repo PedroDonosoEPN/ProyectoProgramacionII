@@ -7,129 +7,47 @@ import java.util.Scanner;
 public class Controlador {
     
     public void iniciarSistema(Scanner teclado) {
-
         ValidadorUsuarios validador = new ValidadorUsuarios();
+        
         int maxProductos = 10;
         gestionStock gestorInventario = new gestionStock(maxProductos);
         mostrarInventario vistaTablas = new mostrarInventario();
         Inventario controladorProductos = new Inventario();
         
-<<<<<<< HEAD
-        System.out.println("=== BIENVENIDO A LA TIENDA DE TECNOLOGÍA ===");
-        System.out.println("Formatos válidos: [nombre].cliente o [nombre].admin");
-        System.out.print("Ingrese su usuario: ");
-        
-        String entrada = teclado.nextLine();
-        int estadoUsuario = validador.validarUsuario(entrada); 
-
-        System.out.println("----------------------------------------");
-
-        if (estadoUsuario == 14) {
-            System.out.println("-> Bienvenido al panel de administrador");
-            int opcionAdmin;
-=======
         boolean sistemaEncendido = true;
+        
+        // Bucle principal para que el sistema se quede encendido tras cerrar sesión
         while (sistemaEncendido) {
             int estadoUsuario = 0;
->>>>>>> 7d3a9cba53125f0188817e510a3bb0e0f34d42d0
             
-            // --- LOGIN ---
+            // --- LOGIN (BUCLE HASTA QUE INGRESE ROL VÁLIDO O SALIR) ---
             do {
                 System.out.println("\n=== BIENVENIDO A LA TIENDA DE TECNOLOGÍA ===");
                 System.out.println("Formatos válidos: [nombre].cliente o [nombre].admin (Escribe 'salir' para apagar)");
                 System.out.print("Ingrese su usuario: ");
                 
-<<<<<<< HEAD
-                switch (opcionAdmin) {
-                    case 1:
-                        // -----------------------------------------------------
-                        // CASO 1: REGISTRO DE PRODUCTO
-                        // -----------------------------------------------------
-                        System.out.print("Ingrese ID del producto (7 caracteres): ");
-                        String id = teclado.nextLine();
-                        System.out.print("Ingrese Nombre del producto: ");
-                        String nombre = teclado.nextLine();
-                        System.out.print("Ingrese Stock inicial: ");
-                        int stockInicial = teclado.nextInt();
-                        System.out.print("Ingrese Precio del producto: ");
-                        double precio = teclado.nextDouble();
-                        teclado.nextLine(); // Limpiar el buffer
-                        
-                        controladorProductos.AgregarProducto(gestorInventario, id, nombre, precio, stockInicial);
-                        break;
-                        
-                    case 2:
-                        // -----------------------------------------------------
-                        // CASO 2: ELIMINACIÓN DE PRODUCTO
-                        // -----------------------------------------------------
-                        System.out.print("Ingrese el ID del producto que desea eliminar: ");
-                        String idEliminar = teclado.nextLine();
-                        System.out.print("Ingrese el Nombre del producto que desea eliminar: ");
-                        String nombreEliminar = teclado.nextLine();
-
-                        controladorProductos.EliminarProducto(gestorInventario, idEliminar, nombreEliminar);
-                        break;
-                        
-                    case 3:
-                        // -----------------------------------------------------
-                        // CASO 3: MODIFICACIÓN MATEMÁTICA DEL STOCK
-                        // -----------------------------------------------------
-                        System.out.print("Ingrese ID o Nombre del producto: ");
-                        String criterio = teclado.nextLine();
-                        System.out.print("Cantidad a cambiar (Positivo suma / Negativo resta): ");
-                        int cambio = teclado.nextInt();
-                        teclado.nextLine(); // Limpiar el buffer
-                        
-                        boolean exito = gestorInventario.modificarStock(criterio, cambio);
-                        if (exito) {
-                            System.out.println("-> Stock actualizado correctamente.");
-                        }
-                        break;
-                        
-                    case 4:
-                        // -----------------------------------------------------
-                        // CASO 4: IMPRESIÓN DE LA TABLA
-                        // -----------------------------------------------------
-                        vistaTablas.imprimirTabla(gestorInventario.getInventario(), maxProductos);
-                        break;
-                        
-                    case 5:
-                        System.out.println("Cerrando sesión de administrador...");
-                        return;
-                        
-                    default:
-                        System.out.println("Opción inválida.");
-=======
                 String entrada = teclado.nextLine();
                 
                 // Condición para apagar el programa definitivamente
                 if (entrada.equalsIgnoreCase("salir")) {
                     estadoUsuario = -1;
                     break; 
->>>>>>> 7d3a9cba53125f0188817e510a3bb0e0f34d42d0
                 }
                 
                 estadoUsuario = validador.validarUsuario(entrada); 
+                
+                if (estadoUsuario != 14 && estadoUsuario != 9 && estadoUsuario != -1) {
+                    System.out.println("Error, formato no válido. Intente de nuevo.");
+                }
 
-<<<<<<< HEAD
-        } else if (estadoUsuario == 9) {
-            ControladorCliente cliente = new ControladorCliente();
-            cliente.menuCliente(teclado);
-            
-        } else {
-            System.out.println("Error, formato no válido");
-        }
-        
-        System.out.println("----------------------------------------");
-=======
-            } while(estadoUsuario != 14 && estadoUsuario != 9);
+            } while (estadoUsuario != 14 && estadoUsuario != 9);
 
             System.out.println("----------------------------------------");
 
-            // --- REDIRECCIÓN ---
+            // --- REDIRECCIÓN DE ROLES ---
             if (estadoUsuario == -1) {
                 System.out.println("Apagando el sistema. ¡Adiós!");
-                sistemaEncendido = false; // Rompe el bucle principal
+                sistemaEncendido = false; // Rompe el bucle principal y apaga
                 
             } else if (estadoUsuario == 14) {
                 System.out.println("-> Bienvenido al panel de administrador");
@@ -148,6 +66,7 @@ public class Controlador {
                     
                     switch (opcionAdmin) {
                         case 1:
+                            // --- REGISTRO DE PRODUCTO ---
                             System.out.print("Ingrese ID del producto (7 caracteres): ");
                             String id = teclado.nextLine();
                             System.out.print("Ingrese Nombre del producto: ");
@@ -162,6 +81,7 @@ public class Controlador {
                             break;
                             
                         case 2:
+                            // --- ELIMINACIÓN DE PRODUCTO ---
                             System.out.print("Ingrese el ID del producto que desea eliminar: ");
                             String idEliminar = teclado.nextLine();
                             System.out.print("Ingrese el Nombre del producto que desea eliminar: ");
@@ -171,6 +91,7 @@ public class Controlador {
                             break;
                             
                         case 3:
+                            // --- MODIFICACIÓN DE STOCK ---
                             System.out.print("Ingrese ID o Nombre del producto: ");
                             String criterio = teclado.nextLine();
                             System.out.print("Cantidad a cambiar (Positivo suma / Negativo resta): ");
@@ -184,6 +105,7 @@ public class Controlador {
                             break;
                             
                         case 4:
+                            // --- IMPRESIÓN DEL INVENTARIO ---
                             vistaTablas.imprimirTabla(gestorInventario.getInventario(), maxProductos);
                             break;
                             
@@ -197,16 +119,13 @@ public class Controlador {
                 } while (opcionAdmin != 5);
 
             } else if (estadoUsuario == 9) {
+                // --- PANEL DE CLIENTES ---
+                System.out.println("-> Bienvenido al Panel de clientes");
                 ControladorCliente cliente = new ControladorCliente();
                 
-                // NOTA: Si el cliente necesita ver los productos, probablemente necesites
-                // pasar 'gestorInventario' como parámetro aquí, similar a como lo haces en el admin.
+                // Le pasamos la misma instancia del gestorInventario para que Eidan use las ventas
                 cliente.menuCliente(teclado, gestorInventario); 
-                
-            } else {
-                System.out.println("Error, formato no válido");
             }
-        } // Fin del while (sistemaEncendido)
->>>>>>> 7d3a9cba53125f0188817e510a3bb0e0f34d42d0
+        } 
     }
 }

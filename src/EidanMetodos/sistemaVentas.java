@@ -75,7 +75,7 @@ public class sistemaVentas {
                     }
                 }
 
-                // Agregar nuevo producto al carrito
+                // Agregar nuevo producto al carrito    
                 for (int j = 0; j < carrito.length; j++) {
 
                     if (carrito[j][0] == null) {
