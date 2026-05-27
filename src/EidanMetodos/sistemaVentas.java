@@ -246,20 +246,6 @@ public class sistemaVentas {
             return dineroInicial;
         }
 
-        // Modificar stock
-        for (int i = 0; i < carrito.length; i++) {
-
-            if (carrito[i][0] != null) {
-
-                String id = carrito[i][0];
-
-                int cantidad =
-                    Integer.parseInt(carrito[i][2]);
-
-                // Restar stock
-                gs.modificarStock(id, -cantidad);
-            }
-        }
 
         // Descontar dinero
         dineroInicial -= total;
